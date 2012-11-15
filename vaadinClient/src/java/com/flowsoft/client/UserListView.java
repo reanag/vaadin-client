@@ -2,7 +2,11 @@ package com.flowsoft.client;
 
 import java.util.List;
 
-import com.flowsoft.controller.MyFirstController;
+import javax.annotation.PostConstruct;
+import javax.xml.ws.WebServiceRef;
+
+import com.flowsoft.wanda.UserDetailsService;
+import com.flowsoft.wanda.UserDetailsServiceImplService;
 import com.flowsoft.wanda.WandaUser;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -16,8 +20,26 @@ public class UserListView extends Panel implements View {
 	private static final long serialVersionUID = 1L;
 	public static final String NAME = "userList";
 
-	public UserListView(MyFirstController c) {
-		List<WandaUser> w = c.findAllUser();
+	@WebServiceRef
+	private UserDetailsService controller;
+
+	@PostConstruct
+	public void init() {
+		UserDetailsServiceImplService service = new UserDetailsServiceImplService();
+		controller = service.getUserDetailsServiceImplPort();
+	}
+
+	public UserDetailsService getController() {
+		return this.controller;
+	}
+
+	public void setController(UserDetailsService controller) {
+		this.controller = controller;
+	}
+
+	public UserListView() {
+		init();
+		List<WandaUser> w = controller.findAllUser();
 		Table table = new Table("Users from database:");
 		table.addContainerProperty("Username", String.class, null);
 		table.addContainerProperty("First Name", String.class, null);

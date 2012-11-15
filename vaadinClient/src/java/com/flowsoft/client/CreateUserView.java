@@ -1,6 +1,11 @@
 package com.flowsoft.client;
 
-import com.flowsoft.controller.MyFirstController;
+//import com.flowsoft.controller.MyFirstController;
+import javax.annotation.PostConstruct;
+import javax.xml.ws.WebServiceRef;
+
+import com.flowsoft.wanda.UserDetailsService;
+import com.flowsoft.wanda.UserDetailsServiceImplService;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.ExternalResource;
@@ -21,12 +26,28 @@ public class CreateUserView extends Panel implements View {
 	private Button b;
 	private TextField firstname, lastname, username;
 	private PasswordField password;
-	private MyFirstController controller;
 	private Table table;
+	@WebServiceRef
+	private UserDetailsService controller;
 
-	public CreateUserView(MyFirstController c) {
+	@PostConstruct
+	public void init() {
+		UserDetailsServiceImplService service = new UserDetailsServiceImplService();
+		controller = service.getUserDetailsServiceImplPort();
+	}
+
+	public UserDetailsService getController() {
+		return this.controller;
+	}
+
+	public void setController(UserDetailsService controller) {
+		this.controller = controller;
+	}
+
+	public CreateUserView() {
 		table = null;
-		controller = c;
+		init();
+
 		firstname = new TextField("First name:");
 		lastname = new TextField("Last name:");
 		username = new TextField("Username:");

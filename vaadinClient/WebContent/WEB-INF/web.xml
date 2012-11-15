@@ -7,6 +7,21 @@
 		<param-name>productionMode</param-name>
 		<param-value>false</param-value>
 	</context-param>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:context.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
+	</listener>
+	<servlet>
+		<servlet-name>StatusServlet</servlet-name>
+		<servlet-class>com.yardspoon.cxfspringjpa.service.StatusServlet</servlet-class>
+	</servlet>
+
 	<servlet>
 		<servlet-name>WandaVaadinClient Application</servlet-name>
 		<servlet-class>com.vaadin.server.VaadinServlet</servlet-class>
@@ -21,6 +36,7 @@
 		<servlet-name>WandaVaadinClient Application</servlet-name>
 		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
+
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
