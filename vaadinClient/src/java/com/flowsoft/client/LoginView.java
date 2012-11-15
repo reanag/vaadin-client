@@ -1,5 +1,8 @@
 package com.flowsoft.client;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -14,6 +17,7 @@ public class LoginView extends Panel implements View {
 	private static final long serialVersionUID = 1L;
 	public static final String NAME = "login";
 	public Navigator navigator;
+	Logger logger = LoggerFactory.getLogger(LoginView.class);
 
 	Button b;
 	TextField tf;
@@ -21,7 +25,7 @@ public class LoginView extends Panel implements View {
 
 	public LoginView(Navigator n) {
 		navigator = n;
-
+		logger.debug("Create loginview");
 		tf = new TextField("Username: ");
 		pf = new PasswordField("Password:");
 		b = new Button("Login", new Button.ClickListener() {

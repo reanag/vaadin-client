@@ -5,8 +5,12 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.xml.ws.WebServiceRef;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import userdetailsserviceimpl.wanda.flowsoft.com.UserDetailsServiceImplService;
+
 import com.flowsoft.wanda.UserDetailsService;
-import com.flowsoft.wanda.UserDetailsServiceImplService;
 import com.flowsoft.wanda.WandaUser;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -19,6 +23,7 @@ public class UserListView extends Panel implements View {
 
 	private static final long serialVersionUID = 1L;
 	public static final String NAME = "userList";
+	Logger logger = LoggerFactory.getLogger(UserListView.class);
 
 	@WebServiceRef
 	private UserDetailsService controller;
@@ -26,7 +31,7 @@ public class UserListView extends Panel implements View {
 	@PostConstruct
 	public void init() {
 		UserDetailsServiceImplService service = new UserDetailsServiceImplService();
-		controller = service.getUserDetailsServiceImplPort();
+		controller = service.getUserDetailsServicePort();
 	}
 
 	public UserDetailsService getController() {

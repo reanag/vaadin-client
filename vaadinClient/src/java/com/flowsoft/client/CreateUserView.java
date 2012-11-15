@@ -1,11 +1,15 @@
 package com.flowsoft.client;
 
-//import com.flowsoft.controller.MyFirstController;
 import javax.annotation.PostConstruct;
 import javax.xml.ws.WebServiceRef;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import userdetailsserviceimpl.wanda.flowsoft.com.UserDetailsServiceImplService;
+
 import com.flowsoft.wanda.UserDetailsService;
-import com.flowsoft.wanda.UserDetailsServiceImplService;
+import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.ExternalResource;
@@ -16,12 +20,15 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.themes.Reindeer;
 
+@Theme("vaadinclienttheme")
 public class CreateUserView extends Panel implements View {
 
 	private static final long serialVersionUID = 1L;
 
 	public static final String NAME = "createUser";
+	Logger logger = LoggerFactory.getLogger(CreateUserView.class);
 
 	private Button b;
 	private TextField firstname, lastname, username;
@@ -33,7 +40,7 @@ public class CreateUserView extends Panel implements View {
 	@PostConstruct
 	public void init() {
 		UserDetailsServiceImplService service = new UserDetailsServiceImplService();
-		controller = service.getUserDetailsServiceImplPort();
+		controller = service.getUserDetailsServicePort();
 	}
 
 	public UserDetailsService getController() {
@@ -70,7 +77,7 @@ public class CreateUserView extends Panel implements View {
 
 			}
 		});
-
+		b.setStyleName(Reindeer.LAYOUT_BLACK);
 		Link lnk2 = new Link("Back",
 				new ExternalResource("#!" + IntroView.NAME));
 
