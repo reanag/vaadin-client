@@ -1,0 +1,1 @@
+Vaadin client for Wanda Web Application
